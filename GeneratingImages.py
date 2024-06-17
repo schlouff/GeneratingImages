@@ -5,16 +5,22 @@ import requests
 import shutil
 from PIL import Image
 
+from openai import OpenAI
+
+client = OpenAI()
+
 # Setze den API-Schlüssel
 api_key = st.secrets["api"]["api_key"]
 assert api_key.startswith('sk-'), 'Error loading the API key. The API key starts with "sk-"'
 os.environ['OPENAI_API_KEY'] = api_key
 
 # Initialisiere den OpenAI-Client
-openai.api_key = api_key
+#openai.api_key = api_key
+
+
 
 def generate_image(prompt):
-    response = openai.Image.create(
+    response = client.images.create(
         model='dall-e-3',
         prompt=prompt,
         style='vivid',
